@@ -7,7 +7,9 @@
  * @second: Pointer to the second node
  * Return: Pointer to the lowest common ancestor
  * or NULL if not found
+ *
  */
+
 binary_tree_t *binary_trees_ancestor(
 		const binary_tree_t *first, const binary_tree_t *second)
 {
@@ -23,6 +25,7 @@ binary_tree_t *binary_trees_ancestor(
 	}
 	return (NULL);
 }
+
 /**
  * binary_tree_is_ancestor - Checks
  * if a node is an ancestor of another node
