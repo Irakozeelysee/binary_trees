@@ -13,9 +13,10 @@
 binary_tree_t *binary_trees_ancestor(
 		const binary_tree_t *first, const binary_tree_t *second)
 {
+	binary_tree_t *ancestor = (binary_tree_t *)first;
+
 	if (first == NULL || second == NULL)
 		return (NULL);
-	binary_tree_t *ancestor = (binary_tree_t *)first;
 
 	while (ancestor != NULL)
 	{
@@ -32,8 +33,13 @@ binary_tree_t *binary_trees_ancestor(
  * @node: Pointer to the target node
  * Return: 1 if ancestor is an ancestor of node, 0 otherwise
  */
+<<<<<<< HEAD
 int binary_tree_is_ancestor(
 		const binary_tree_t *ancestor, const binary_tree_t *node)
+=======
+int binary_tree_is_ancestor(const binary_tree_t *ancestor,
+		const binary_tree_t *node)
+>>>>>>> 06848aa85b06d80dc6c4019001fa16005b1ca3f1
 {
 	if (node == NULL)
 		return (0);
