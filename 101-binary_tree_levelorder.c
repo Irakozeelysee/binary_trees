@@ -1,34 +1,63 @@
 #include "binary_trees.h"
 #include <stddef.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 /**
- * binary_tree_levelorder - Performs
- * level-order traversal on a binary tree.
- * @tree: A pointer to the root node
- * of the tree to traverse.
- * @func: A pointer to a function
- * to call for each node's value.
+ * binary_tree_height_aux - Calculate the height of a binary tree.
+ * @tree: Pointer to the root node of the tree.
+ * Return: Height of the tree.
  */
-void binary_tree_levelorder(const binary_tree_t *tree,
-			    void (*func)(int))
+size_t binary_tree_height_aux(const binary_tree_t *tree)
 {
-	int front = 0;
-	int rear = 0;
+	size_t hleft = 0, hright = 0;
 
-	if (tree == NULL || func == NULL)
+	if (!tree)
+		return (0);
+	if (tree->left)
+		hleft = 1 + binary_tree_height_aux(tree->left);
+	if (tree->right)
+		hright = 1 + binary_tree_height_aux(tree->right);
+	if (hleft > hright)
+		return (hleft);
+	return (hright);
+}
+/**
+ * print_level_order - Print nodes at
+ * a specific level of a binary tree.
+ * @tree: Pointer to the root node of the tree.
+ * @level: Level of the tree to print.
+ * @func: Pointer to the function to call for each node's value.
+ * Return: void
+ */
+void print_level_order(const binary_tree_t *tree, int level, void (*func)(int))
+{
+	if (!tree)
 		return;
-
-	binary_tree_t *queue[1024];
-	queue[rear++] = (binary_tree_t *)tree;
-	while (front < rear)
+	if (level == 1)
+		func(tree->n);
+	else if (level > 1)
 	{
-		binary_tree_t *node = queue[front++];
-		func(node->n);
-		if (node->left)
-			queue[rear++] = node->left;
-		if (node->right)
-			queue[rear++] = node->right;
+		print_level_order(tree->left, level - 1, func);
+		print_level_order(tree->right, level - 1, func);
+	}
+}
+/**
+ * binary_tree_levelorder - Perform level-order traversal on a binary tree.
+ * @tree: Pointer to the root node of the tree to traverse.
+ * @func: Pointer to a function to call for each node's value.
+ * Return: void
+ */
+void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
+{
+	int height = 0;
+	int len = 1;
+
+	if (!tree || !func)
+		return;
+	height = binary_tree_height_aux(tree) + 1;
+	while (len <= height)
+	{
+		print_level_order(tree, len, func);
+		len++;
 	}
 }
