@@ -3,7 +3,7 @@
 /**
  * binary_tree_insert_right - inserts a new node as the right child of a
  * another node
- * if the parent already has a right child the new node must take it's place
+ * if the parent already has right child the new node must take it's place
  * and the old right child must be set as the right child of the new node
  * @parent: pointer to the node t insert the right child in
  * @value: the value to store in the new node
