@@ -1,5 +1,4 @@
 #include "binary_trees.h"
-#include <stddef.h>
 
 /**
  * binary_tree_rotate_left - Perform a
@@ -9,19 +8,22 @@
  */
 binary_tree_t *binary_tree_rotate_left(binary_tree_t *tree)
 {
+	binary_tree_t *chl, *parent = tree;
+
 	if (!tree)
 		return (NULL);
-	if (!tree->right)
+	chl = parent->right;
+	if (!chl)
 		return (tree);
-	binary_tree_t *new_root = tree->right;
-	binary_tree_t *temp_subtree = new_root->left;
-
-	new_root->left = tree;
-
-	tree->right = temp_subtree;
-	if (temp_subtree)
-		temp_subtree->parent = tree;
-	new_root->parent = tree->parent;
-	tree->parent = new_root;
-	return (new_root);
+	if (chl->left)
+		chl->left->parent = parent;
+	parent->right = chl->left;
+	chl->left = parent;
+	chl->parent = parent->parent;
+	parent->parent = chl;
+	if (chl->parent && chl->parent->left == parent)
+		chl->parent->left = chl;
+	else if (chl->parent)
+		chl->parent->right = chl;
+	return (chl);
 }
